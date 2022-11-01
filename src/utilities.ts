@@ -99,8 +99,8 @@ export const calculate_theme = (theme: Partial<RawFlTheme>): FlTheme => {
 
 export const parse_numerical_property = (key: string | number | undefined, from: { [key: string]: number }, unit: string, fallback: string | number) => {
     let value = key ?? fallback;
-    if (typeof value === 'number') return value + unit;
-    return from[value] + 'px';
+    if (typeof value === 'number') return value + 'px';
+    return from[value] + unit;
 }
 
 // TODO: Kill self

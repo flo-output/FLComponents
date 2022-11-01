@@ -23,7 +23,8 @@ export default function Button<C extends React.ElementType = 'button'>
                 backgroundColor: to_property(theme.colours.secondary),
                 
                 color: colour_property(theme, props.colour ?? props.color ?? 'primary'),
-                fontWeight: props.weight ?? 200,
+                fontWeight: props.weight ?? 600,
+                textAlign: 'center',
 
                 userSelect: 'none'
             }, props.className)

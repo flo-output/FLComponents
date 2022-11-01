@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Avatar from "./Avatar";
 import Button from "./Button"
 import Input from "./Input"
 import Stack from "./Stack";
@@ -22,7 +23,11 @@ export default function Showcase() {
             onChange={e => set('Input', e.target.value)}
             value={get('Input')}
             error={(get('Input').length <= 3) ? '' : 'aie!'}
-            placeholder="Keep it short, bud!" />
+            placeholder="Keep it short, bud!" />,
+        'Avatar': <Avatar
+            src="https://cdn.discordapp.com/avatars/396635796234305537/7e695fca450474429fcb1e4d18a7e30f.png?size=4096"
+            size={100}
+        />
     }
 
     return (
@@ -50,7 +55,13 @@ export default function Showcase() {
                                     padding: '1rem 2rem',
                                     borderRadius: '0.5rem',
                                 }}>
-                                {Component}
+                                <div style={{
+                                    width: '100%',
+                                    display: 'grid',
+                                    placeItems: 'center'
+                                }}>
+                                    {Component}
+                                </div>
                                 <Text size="md" mb={-5} ml={-20} weight={600}>
                                     {Name}
                                 </Text>

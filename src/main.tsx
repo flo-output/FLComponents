@@ -7,8 +7,8 @@ ReactDOM
   .render(
     <FlProvider theme={{
       colours: {
-        primary: '#00ff7f',
-        secondary: '#0c0d30',
+        primary: '#ffd700',
+        secondary: '#0d3f4a',
         erroneous: '#f24355'
       }
     }}>
