@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Button from "./Button"
 import Input from "./Input"
+import Stack from "./Stack";
 import Text from "./Text"
 
 export default function Showcase() {
@@ -10,8 +11,18 @@ export default function Showcase() {
     const set = (key: string, value: string) => setStates({ ...states, [key]: value });
 
     const components: { [key: string]: JSX.Element } = {
-        'Button': <Button children={'To GitHub!'} as="a" href="https://github.com/flo-output/FLComponents" target="_blank" />,
-        'Input': <Input label="An input!" description="How completely bizarre!" onChange={e => set('Input', e.target.value)} value={get('Input')} error={(get('Input').length <= 3) ? '' : 'aie!'} placeholder="Keep it short, bud!" />
+        'Button': <Button
+            children={'To GitHub!'}
+            as="a"
+            href="https://github.com/flo-output/FLComponents"
+            target="_blank" />,
+        'Input': <Input
+            label="An input!"
+            description="How completely bizarre!"
+            onChange={e => set('Input', e.target.value)}
+            value={get('Input')}
+            error={(get('Input').length <= 3) ? '' : 'aie!'}
+            placeholder="Keep it short, bud!" />
     }
 
     return (
@@ -28,23 +39,22 @@ export default function Showcase() {
                 gap: '2rem',
             }}>
                 {
-                    Object.entries(components).map(c => {
+                    Object.entries(components).map(([Name, Component]) => {
                         return (
-                            <div key={c[0]} style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                minHeight: '5rem',
-                                background: 'rgba(255, 255, 255, 0.1)',
-                                padding: '1rem 2rem',
-                                borderRadius: '0.5rem',
-                            }}>
-                                {c[1]}
-                                <Text size="lg" weight={600}>
-                                    {c[0]}
+                            <Stack
+                                gap={1}
+                                key={Name}
+                                style={{
+                                    minHeight: '5rem',
+                                    background: 'rgba(255, 255, 255, 0.1)',
+                                    padding: '1rem 2rem',
+                                    borderRadius: '0.5rem',
+                                }}>
+                                {Component}
+                                <Text size="md" mb={-5} ml={-20} weight={600}>
+                                    {Name}
                                 </Text>
-                            </div>
+                            </Stack>
                         )
                     })
                 }

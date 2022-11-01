@@ -24,6 +24,7 @@ export type FlTextProps = {
 export type FlIntrinsicProps = {
     children?: React.ReactNode;
     className?: string;
+    style?: React.CSSProperties;
 
     px?: FlBreakpoint;
     py?: FlBreakpoint;

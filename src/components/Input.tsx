@@ -3,6 +3,7 @@ import { compute_style, FlFalsey, populate_intrinsic_style, to_property } from "
 import { ComponentPropsWithoutRef } from "react";
 import type { FlIntrinsicProps } from "../types";
 import Text from "./Text";
+import Stack from "./Stack";
 
 export default function Input
     (props: FlIntrinsicProps & ComponentPropsWithoutRef<'input'> & {
@@ -14,7 +15,7 @@ export default function Input
     const theme = useTheme();
 
     return (
-        <label>
+        <Stack as="label" gap={0}>
             {props.label && <Text children={props.label} mb={0} weight={600} />}
             {props.description && <Text children={props.description} mt={0} mb="xs" size="sm" opacity={60} weight={200} />}
 
@@ -40,6 +41,6 @@ export default function Input
                 } as any}>
                 {props.children}
             </input>
-        </label>
+        </Stack>
     )
 }

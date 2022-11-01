@@ -97,6 +97,12 @@ export const calculate_theme = (theme: Partial<RawFlTheme>): FlTheme => {
     }
 }
 
+export const parse_numerical_property = (key: string | number | undefined, from: { [key: string]: number }, unit: string, fallback: string | number) => {
+    let value = key ?? fallback;
+    if (typeof value === 'number') return value + unit;
+    return from[value] + 'px';
+}
+
 // TODO: Kill self
 export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps, defaults: Partial<FlIntrinsicProps> = {}): CSSProperties => {
 
@@ -127,6 +133,8 @@ export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps
     }
 
     return {
+
+        ...props.style,
 
         display: 'block',
         textDecoration: 'none',
