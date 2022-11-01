@@ -1,7 +1,8 @@
 export type ColourTriple = [number, number, number];
+export type HEX = `#${string}`;
 type HSL = ColourTriple;
-type HEX = `#${string}`;
 
+export type Colour = HEX | keyof FlTheme['colours'];
 export type FlBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number;
 
 export type FLIntrinsicProps = {

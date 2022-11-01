@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 import { DefaultTheme } from './providers/FlProvider';
-import type { ColourTriple, FlBreakpoint, FLIntrinsicProps, FlTheme, RawFlTheme } from './types';
+import type { Colour, ColourTriple, FlBreakpoint, FLIntrinsicProps, FlTheme, RawFlTheme } from './types';
 
 class Cache {
     private cache: Map<string, any> = new Map();
@@ -112,4 +112,8 @@ export const populate_intrinsic_style = (theme: FlTheme, props: FLIntrinsicProps
         marginRight: unit(directional_value('m', 'r')),
 
     }
+}
+
+export const colour_property = (theme: FlTheme, colour: Colour) => {
+    return colour.startsWith('#') ? colour : to_property(theme.colours[colour as keyof FlTheme['colours']]);
 }

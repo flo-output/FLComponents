@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { FlContext } from "../contexts/ThemeContext";
+import { calculate_theme, to_property } from "../utilities";
+import { Helmet } from "react-helmet";
 import type { FLIntrinsicProps, FlTheme, RawFlTheme } from "../types";
-import { calculate_theme } from "../utilities";
 
 export const DefaultTheme: FlTheme = {
     units: 'rem',
     font: 'sans-serif',
 
     colours: {
-        primary: [176, 89, 96],
-        secondary: [274, 100, 45]
+        primary: [41, 12, 25],
+        secondary: [129, 93, 89],
     },
     spacing: {
         'xs': 0.25,
@@ -44,8 +45,18 @@ export default function FlProvider({ children }: FLIntrinsicProps) {
     }
 
     return (
-        <FlContext.Provider value={value}>
-            {children}
-        </FlContext.Provider>
+        <>
+            <Helmet>
+                <style children={`
+                body {
+                    margin: 0;
+                    padding: 0;
+                    background-color: ${to_property(theme.colours.secondary)};
+                }`} />
+            </Helmet>
+            <FlContext.Provider value={value}>
+                {children}
+            </FlContext.Provider>
+        </>
     )
 }
