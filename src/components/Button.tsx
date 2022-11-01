@@ -1,13 +1,16 @@
+import React from "react";
 import useTheme from "../hooks/Theme";
-import { FLIntrinsicProps } from "../types";
-import { compute_style, populate_intrinsic_style, to_property } from "../utilities";
+import { FlIntrinsicProps, FlPolymorphic, FlTextProps } from "../types";
+import { colour_property, compute_style, populate_intrinsic_style, to_property } from "../utilities";
 
-export default function Button(props: FLIntrinsicProps) {
+export default function Button<C extends React.ElementType = 'button'>
+    (props: FlPolymorphic<FlIntrinsicProps & FlTextProps, C>) {
 
     const theme = useTheme();
+    const Component = props.as || 'button';
 
     return (
-        <button className={
+        <Component {...props} className={
             compute_style({
                 ...populate_intrinsic_style(theme, props, {
                     px: 'md',
@@ -18,10 +21,13 @@ export default function Button(props: FLIntrinsicProps) {
                 border: '1px solid',
                 cursor: 'pointer',
                 backgroundColor: to_property(theme.colours.secondary),
-                color: to_property(theme.colours.primary),
+                
+                color: colour_property(theme, props.colour ?? 'primary'),
+                fontWeight: props.weight ?? 200,
+
             }, props.className)
         }>
             {props.children}
-        </button>
+        </Component>
     )
 }

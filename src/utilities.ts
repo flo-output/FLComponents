@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 import { DefaultTheme } from './providers/FlProvider';
-import type { Colour, ColourTriple, FlBreakpoint, FLIntrinsicProps, FlTheme, HEX, RawFlTheme } from './types';
+import type { Colour, ColourTriple, FlBreakpoint, FlIntrinsicProps, FlTheme, HEX, RawFlTheme } from './types';
 
 class Cache {
     private cache: Map<string, any> = new Map();
@@ -97,13 +97,13 @@ export const calculate_theme = (theme: Partial<RawFlTheme>): FlTheme => {
 }
 
 // TODO: Kill self
-export const populate_intrinsic_style = (theme: FlTheme, props: FLIntrinsicProps, defaults: Partial<FLIntrinsicProps> = {}): CSSProperties => {
+export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps, defaults: Partial<FlIntrinsicProps> = {}): CSSProperties => {
 
     const unit = (v: any) => {
         return `${v}${theme.units}`;
     }
 
-    const value = (key: keyof FlTheme, from: keyof FLIntrinsicProps, fallback?: string) => {
+    const value = (key: keyof FlTheme, from: keyof FlIntrinsicProps, fallback?: string) => {
         return (theme[key] as any)[
             (props[from] ?? defaults[from] ?? fallback as any)
         ]
@@ -113,18 +113,22 @@ export const populate_intrinsic_style = (theme: FlTheme, props: FLIntrinsicProps
 
         // Use specific value
         let key = `${type}${d}`;
-        let value = props[key as keyof FLIntrinsicProps] ?? defaults[key as keyof FLIntrinsicProps];
+        let value = props[key as keyof FlIntrinsicProps] ?? defaults[key as keyof FlIntrinsicProps];
         if (value) return theme.spacing[value as FlBreakpoint];
 
         // Use generic value
         key = `${type}${['t', 'b'].includes(d) ? 'y' : 'x'}`;
-        value = props[key as keyof FLIntrinsicProps] ?? defaults[key as keyof FLIntrinsicProps];
+        value = props[key as keyof FlIntrinsicProps] ?? defaults[key as keyof FlIntrinsicProps];
         if (value) return theme.spacing[value as FlBreakpoint];
 
         return 0;
     }
 
     return {
+
+        display: 'block',
+        textDecoration: 'none',
+
         fontFamily: theme.font,
         fontSize: unit(value('sizes', 'size', 'md')),
         borderRadius: unit(value('radius', 'radius', 'md')),

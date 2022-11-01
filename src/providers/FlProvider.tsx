@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FlContext } from "../contexts/ThemeContext";
 import { calculate_theme, to_property } from "../utilities";
 import { Helmet } from "react-helmet";
-import type { FLIntrinsicProps, FlTheme, RawFlTheme } from "../types";
+import type { FlIntrinsicProps, FlTheme, RawFlTheme } from "../types";
 
 export const DefaultTheme: FlTheme = {
     units: 'rem',
@@ -35,7 +35,7 @@ export const DefaultTheme: FlTheme = {
     }
 }
 
-export default function FlProvider({ children, theme: initialTheme }: FLIntrinsicProps & { theme?: Partial<RawFlTheme> }) {
+export default function FlProvider({ children, theme: initialTheme }: FlIntrinsicProps & { theme?: Partial<RawFlTheme> }) {
 
     const [theme, setTheme] = useState<FlTheme>({ ...DefaultTheme, ...(initialTheme ? calculate_theme(initialTheme) : undefined) });
 
