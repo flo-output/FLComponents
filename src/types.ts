@@ -56,6 +56,7 @@ export type FlTheme = {
     colours: {
         primary: HSL,
         secondary: HSL,
+        erroneous: HSL
     },
 
     // Used for Margin, Padding

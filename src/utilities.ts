@@ -92,6 +92,7 @@ export const calculate_theme = (theme: Partial<RawFlTheme>): FlTheme => {
         colours: {
             primary: hex_to_hsl(theme.colours?.primary ?? '#000000'),
             secondary: hex_to_hsl(theme.colours?.secondary ?? '#000000'),
+            erroneous: hex_to_hsl(theme.colours?.erroneous ?? '#000000'),
         }
     }
 }
@@ -183,3 +184,5 @@ export const compute_style = (styles: CSSProperties, className?: string) => {
 
     return id + suffix;
 }
+
+export const FlFalsey = [false, null, undefined, ''];

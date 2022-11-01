@@ -11,7 +11,7 @@ export default function Showcase() {
 
     const components: { [key: string]: JSX.Element } = {
         'Button': <Button children={'To GitHub!'} as="a" href="https://github.com/flo-output/FLComponents" target="_blank" />,
-        'Input': <Input label="An input!" description="How completely bizarre!" onChange={e => set('Input', e.target.value)} value={get('Input')} />
+        'Input': <Input label="An input!" description="How completely bizarre!" onChange={e => set('Input', e.target.value)} value={get('Input')} error={(get('Input').length <= 3) ? '' : 'aie!'} placeholder="Keep it short, bud!" />
     }
 
     return (

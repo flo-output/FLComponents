@@ -11,6 +11,7 @@ export const DefaultTheme: FlTheme = {
     colours: {
         primary: [0, 0, 100],
         secondary: [0, 0, 0],
+        erroneous: [0, 100, 50],
     },
     spacing: {
         'xs': 0.25,
@@ -51,6 +52,21 @@ export default function FlProvider({ children, theme: initialTheme }: FlIntrinsi
                 ::selection {
                     background-color: ${to_property(theme.colours.primary)};
                     color: ${to_property(theme.colours.secondary)};
+                }
+
+                * {
+                    box-sizing: border-box;
+                }
+
+                *:focus {
+                    outline: none;
+                }
+
+                *:focus-visible {
+                    outline: 2px solid ${to_property(theme.colours.primary)} !important;
+                    outline-color: var(--outline) !important;
+                    outline-offset: 2px;
+                    border-color: transparent !important;
                 }
 
                 body {

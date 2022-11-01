@@ -8,7 +8,8 @@ ReactDOM
     <FlProvider theme={{
       colours: {
         primary: '#00ff7f',
-        secondary: '#0c0d30'
+        secondary: '#0c0d30',
+        erroneous: '#f24355'
       }
     }}>
       <Showcase />
