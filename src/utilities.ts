@@ -105,7 +105,7 @@ export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps
         return (theme[key])[target] + theme.units;
     };
 
-    const directional_value = (type: 'p' | 'm', d: 't' | 'b' | 'l' | 'r') => {
+    const directional_value = (type: 'p' | 'm', direction: 't' | 'b' | 'l' | 'r') => {
 
         let key, value: string | number | undefined;
         const return_value = () =>
@@ -113,14 +113,14 @@ export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps
                 theme.spacing[value as any] + theme.units;
 
         // Use specific value
-        key = `${type}${d}` as 'mt' | 'mb' | 'ml' | 'mr' | 'pt' | 'pb' | 'pl' | 'pr';
+        key = `${type}${direction}` as 'mt' | 'mb' | 'ml' | 'mr' | 'pt' | 'pb' | 'pl' | 'pr';
         value = props[key] ?? defaults[key];
-        if (value) return return_value();
+        if (value !== undefined) return return_value();
 
         // Use generic value
-        key = `${type}${['t', 'b'].includes(d) ? 'y' : 'x'}` as 'mx' | 'my' | 'px' | 'py';
+        key = `${type}${['t', 'b'].includes(direction) ? 'y' : 'x'}` as 'mx' | 'my' | 'px' | 'py';
         value = props[key] ?? defaults[key];
-        if (value) return return_value();
+        if (value !== undefined) return return_value();
 
         return 0;
     }
