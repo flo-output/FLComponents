@@ -6,7 +6,8 @@ export type Colour = HEX | keyof FlTheme['colours'];
 export type FlBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number;
 
 export type FLIntrinsicProps = {
-    children: React.ReactNode;
+    children?: React.ReactNode;
+    className?: string;
 
     px?: FlBreakpoint;
     py?: FlBreakpoint;

@@ -5,7 +5,12 @@ import FlProvider from './providers/FlProvider'
 ReactDOM
   .createRoot(document.getElementById('root') as HTMLElement)
   .render(
-    <FlProvider>
+    <FlProvider theme={{
+      colours: {
+        primary: '#00ff7f',
+        secondary: '#0c0d30'
+      }
+    }}>
       <Showcase />
     </FlProvider>
   )

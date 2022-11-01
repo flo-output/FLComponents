@@ -9,8 +9,8 @@ export const DefaultTheme: FlTheme = {
     font: 'sans-serif',
 
     colours: {
-        primary: [41, 12, 25],
-        secondary: [129, 93, 89],
+        primary: [0, 0, 100],
+        secondary: [0, 0, 0],
     },
     spacing: {
         'xs': 0.25,
@@ -35,9 +35,9 @@ export const DefaultTheme: FlTheme = {
     }
 }
 
-export default function FlProvider({ children }: FLIntrinsicProps) {
+export default function FlProvider({ children, theme: initialTheme }: FLIntrinsicProps & { theme?: Partial<RawFlTheme> }) {
 
-    const [theme, setTheme] = useState<FlTheme>(DefaultTheme);
+    const [theme, setTheme] = useState<FlTheme>({ ...DefaultTheme, ...(initialTheme ? calculate_theme(initialTheme) : undefined) });
 
     const value = {
         ...theme,

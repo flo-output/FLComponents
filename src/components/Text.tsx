@@ -1,5 +1,5 @@
 import useTheme from "../hooks/Theme";
-import { colour_property, populate_intrinsic_style, to_property } from "../utilities";
+import { colour_property, compute_style, populate_intrinsic_style, to_property } from "../utilities";
 import type { Colour, FLIntrinsicProps } from "../types";
 
 // TODO: Make polymorphic,
@@ -9,7 +9,7 @@ export default function Text(props: FLIntrinsicProps & { color?: Colour, colour?
     const theme = useTheme();
 
     return (
-        <span style={{
+        <span className={compute_style({
             ...populate_intrinsic_style(theme, props, {
                 my: 'sm',
                 size: 'md',
@@ -17,7 +17,7 @@ export default function Text(props: FLIntrinsicProps & { color?: Colour, colour?
 
             color: colour_property(theme, props.colour ?? 'primary'),
             fontWeight: props.weight ?? 400,
-        }}>
+        }, props.className)}>
             {props.children}
         </span>
     )
