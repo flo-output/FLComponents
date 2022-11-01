@@ -1,11 +1,13 @@
 import type { ElementType, ComponentPropsWithoutRef } from "react";
+import React from "react";
 
 export type ColourTriple = [number, number, number];
 export type HEX = `#${string}`;
 type HSL = ColourTriple;
 
-export type Colour = HEX | keyof FlTheme['colours'];
+export type FlColour = HEX | keyof FlTheme['colours'];
 export type FlBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number;
+export type FlSizeKeys = 'sizes' | 'radius' | 'spacing';
 
 export type FlPolymorphic<B, C extends ElementType> = B & {
     as?: C
@@ -13,10 +15,10 @@ export type FlPolymorphic<B, C extends ElementType> = B & {
 
 export type FlTextProps = {
     // Thank you, America
-    color?: Colour,
-    colour?: Colour,
+    color?: FlColour,
+    colour?: FlColour,
 
-    weight: number,
+    weight?: number,
 }
 
 export type FlIntrinsicProps = {
@@ -69,4 +71,3 @@ export type FlTheme = {
 export type RawFlTheme = Omit<FlTheme, 'colours'> & {
     colours: { [key in keyof FlTheme['colours']]: HEX }
 }
-

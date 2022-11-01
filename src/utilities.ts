@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 import { DefaultTheme } from './providers/FlProvider';
-import type { Colour, ColourTriple, FlBreakpoint, FlIntrinsicProps, FlTheme, HEX, RawFlTheme } from './types';
+import type { FlColour, ColourTriple, FlBreakpoint, FlIntrinsicProps, FlTheme, HEX, RawFlTheme, FlSizeKeys } from './types';
 
 class Cache {
     private cache: Map<string, any> = new Map();
@@ -82,8 +82,8 @@ function hex_to_hsl(hex: HEX): ColourTriple {
     return [h, s, l];
 }
 
-export const to_property = (hsl: ColourTriple) => {
-    return `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
+export const to_property = (hsl: ColourTriple, opacity: number = 100) => {
+    return `hsla(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%, ${opacity / 100})`;
 }
 
 export const calculate_theme = (theme: Partial<RawFlTheme>): FlTheme => {
@@ -99,27 +99,28 @@ export const calculate_theme = (theme: Partial<RawFlTheme>): FlTheme => {
 // TODO: Kill self
 export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps, defaults: Partial<FlIntrinsicProps> = {}): CSSProperties => {
 
-    const unit = (v: any) => {
-        return `${v}${theme.units}`;
-    }
-
-    const value = (key: keyof FlTheme, from: keyof FlIntrinsicProps, fallback?: string) => {
-        return (theme[key] as any)[
-            (props[from] ?? defaults[from] ?? fallback as any)
-        ]
+    const value = (key: FlSizeKeys, from: keyof FlIntrinsicProps, fallback?: FlBreakpoint) => {
+        const target = (props[from] ?? defaults[from] ?? fallback as any);
+        if (typeof target === 'number') return target + 'px';
+        return (theme[key])[target] + theme.units;
     };
 
     const directional_value = (type: 'p' | 'm', d: 't' | 'b' | 'l' | 'r') => {
 
+        let key, value: string | number | undefined;
+        const return_value = () =>
+            typeof value === 'number' ? (value + 'px') :
+                theme.spacing[value as any] + theme.units;
+
         // Use specific value
-        let key = `${type}${d}`;
-        let value = props[key as keyof FlIntrinsicProps] ?? defaults[key as keyof FlIntrinsicProps];
-        if (value) return theme.spacing[value as FlBreakpoint];
+        key = `${type}${d}` as 'mt' | 'mb' | 'ml' | 'mr' | 'pt' | 'pb' | 'pl' | 'pr';
+        value = props[key] ?? defaults[key];
+        if (value) return return_value();
 
         // Use generic value
-        key = `${type}${['t', 'b'].includes(d) ? 'y' : 'x'}`;
-        value = props[key as keyof FlIntrinsicProps] ?? defaults[key as keyof FlIntrinsicProps];
-        if (value) return theme.spacing[value as FlBreakpoint];
+        key = `${type}${['t', 'b'].includes(d) ? 'y' : 'x'}` as 'mx' | 'my' | 'px' | 'py';
+        value = props[key] ?? defaults[key];
+        if (value) return return_value();
 
         return 0;
     }
@@ -130,24 +131,24 @@ export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps
         textDecoration: 'none',
 
         fontFamily: theme.font,
-        fontSize: unit(value('sizes', 'size', 'md')),
-        borderRadius: unit(value('radius', 'radius', 'md')),
+        fontSize: value('sizes', 'size', 'md'),
+        borderRadius: value('radius', 'radius', 'md'),
 
-        paddingTop: unit(directional_value('p', 't')),
-        paddingBottom: unit(directional_value('p', 'b')),
-        paddingLeft: unit(directional_value('p', 'l')),
-        paddingRight: unit(directional_value('p', 'r')),
+        paddingTop: directional_value('p', 't'),
+        paddingBottom: directional_value('p', 'b'),
+        paddingLeft: directional_value('p', 'l'),
+        paddingRight: directional_value('p', 'r'),
 
-        marginTop: unit(directional_value('m', 't')),
-        marginBottom: unit(directional_value('m', 'b')),
-        marginLeft: unit(directional_value('m', 'l')),
-        marginRight: unit(directional_value('m', 'r')),
+        marginTop: directional_value('m', 't'),
+        marginBottom: directional_value('m', 'b'),
+        marginLeft: directional_value('m', 'l'),
+        marginRight: directional_value('m', 'r'),
 
     }
 }
 
-export const colour_property = (theme: FlTheme, colour: Colour) => {
-    return colour.startsWith('#') ? colour : to_property(theme.colours[colour as keyof FlTheme['colours']]);
+export const colour_property = (theme: FlTheme, colour: FlColour, opacity: number = 100) => {
+    return colour.startsWith('#') ? colour : to_property(theme.colours[colour as keyof FlTheme['colours']], opacity);
 }
 
 export const react_css_to_raw_css = (str: string) => {

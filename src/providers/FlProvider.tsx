@@ -48,6 +48,11 @@ export default function FlProvider({ children, theme: initialTheme }: FlIntrinsi
         <>
             <Helmet>
                 <style children={`
+                ::selection {
+                    background-color: ${to_property(theme.colours.primary)};
+                    color: ${to_property(theme.colours.secondary)};
+                }
+
                 body {
                     margin: 0;
                     padding: 0;

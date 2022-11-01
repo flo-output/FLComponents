@@ -25,6 +25,7 @@ export default function Button<C extends React.ElementType = 'button'>
                 color: colour_property(theme, props.colour ?? 'primary'),
                 fontWeight: props.weight ?? 200,
 
+                userSelect: 'none'
             }, props.className)
         }>
             {props.children}

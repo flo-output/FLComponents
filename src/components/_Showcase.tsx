@@ -1,13 +1,19 @@
+import { useState } from "react"
 import Button from "./Button"
 import Input from "./Input"
 import Text from "./Text"
 
-const components: { [key: string]: JSX.Element } = {
-    'Button': <Button children={'To GitHub!'} as="a" href="https://github.com/flo-output/FLComponents" target="_blank" />,
-    'Input': <Input />
-}
-
 export default function Showcase() {
+
+    const [states, setStates] = useState<{ [key: string]: any }>({});
+    const get = (key: string) => states[key] ?? '';
+    const set = (key: string, value: string) => setStates({ ...states, [key]: value });
+
+    const components: { [key: string]: JSX.Element } = {
+        'Button': <Button children={'To GitHub!'} as="a" href="https://github.com/flo-output/FLComponents" target="_blank" />,
+        'Input': <Input label="An input!" description="How completely bizarre!" onChange={e => set('Input', e.target.value)} value={get('Input')} />
+    }
+
     return (
         <div style={{
             width: '100vw',
@@ -17,8 +23,8 @@ export default function Showcase() {
         }}>
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gridTemplateRows: 'repeat(2, 1fr)',
+                gridTemplateColumns: 'repeat(auto-fill minmax(150, 1fr))',
+                gridTemplateRows: 'repeat(auto-fill minmax(150, 1fr))',
                 gap: '2rem',
             }}>
                 {
@@ -29,7 +35,7 @@ export default function Showcase() {
                                 flexDirection: 'column',
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
-                                height: '5rem',
+                                minHeight: '5rem',
                                 background: 'rgba(255, 255, 255, 0.1)',
                                 padding: '1rem 2rem',
                                 borderRadius: '0.5rem',
