@@ -17,7 +17,7 @@ export default function Text<C extends React.ElementType = 'span'>
                 size: 'md',
             }),
 
-            color: colour_property(theme, props.colour ?? 'primary', props.opacity),
+            color: colour_property(theme, props.colour ?? props.color ?? 'primary', props.opacity),
             fontWeight: props.weight ?? 400,
         }, props.className)}>
             {props.children}

@@ -22,7 +22,7 @@ export default function Button<C extends React.ElementType = 'button'>
                 cursor: 'pointer',
                 backgroundColor: to_property(theme.colours.secondary),
                 
-                color: colour_property(theme, props.colour ?? 'primary'),
+                color: colour_property(theme, props.colour ?? props.color ?? 'primary'),
                 fontWeight: props.weight ?? 200,
 
                 userSelect: 'none'
