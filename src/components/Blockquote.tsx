@@ -11,7 +11,7 @@ export default function Blockquote(props: FlIntrinsicProps & FlTextProps & {
     const theme = useTheme();
 
     return (
-        <Stack pl="sm" py="xs" direction="column" radius={0} gap="xs" style={{
+        <Stack pl="lg" py="xs" direction="column" radius={0} gap="xs" style={{
             borderLeft: `5px solid ${colour_property(theme, 'primary')}`,
         }} withBorder={false}>
             <span className={compute_style({
@@ -29,6 +29,7 @@ export default function Blockquote(props: FlIntrinsicProps & FlTextProps & {
                     size: 'md',
                 }),
 
+                fontStyle: 'italic',
                 color: colour_property(theme, props.colour ?? props.color ?? 'primary', 60),
                 fontWeight: props.weight ?? 400,
             }, props.className)}>

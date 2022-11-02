@@ -1,4 +1,8 @@
-import { useState } from "react"
+import { GetColorName } from "hex-color-to-color-name";
+import { useEffect, useState } from "react"
+import useTheme from "../hooks/Theme";
+import { ColourTriple } from "../types";
+import { to_property } from "../utilities";
 import Avatar from "./Avatar";
 import Blockquote from "./Blockquote";
 import Button from "./Button"
@@ -6,13 +10,37 @@ import Input from "./Input"
 import Stack from "./Stack";
 import Text from "./Text"
 
+function hslToHex([h, s, l]: ColourTriple) {
+    l /= 100;
+    const a = s * Math.min(l, 1 - l) / 100;
+    const f = (n: number) => {
+        const k = (n + h / 30) % 12;
+        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        return Math.round(255 * color).toString(16).padStart(2, '0');   // convert to Hex and prefix "0" if needed
+    };
+
+    return `#${f(0)}${f(8)}${f(4)}`;
+}
+
 export default function Showcase() {
 
+    const theme = useTheme();
     const [states, setStates] = useState<{ [key: string]: any }>({});
     const get = (key: string) => states[key] ?? '';
     const set = (key: string, value: string) => setStates({ ...states, [key]: value });
 
     const components: { [key: string]: JSX.Element } = {
+        'Colour Scheme':
+            <Stack direction="row" gap={8}>
+                <Stack gap={0}>
+                    <Text my={0} size="lg" weight={700}>{hslToHex(theme.colours.primary)}</Text>
+                    <Text my={0}>{GetColorName(hslToHex(theme.colours.primary))}</Text>
+                </Stack>
+                <Stack gap={0}>
+                    <Text colour="secondary" my={0} size="lg" weight={700}>{hslToHex(theme.colours.secondary)}</Text>
+                    <Text colour="secondary" my={0}>{GetColorName(hslToHex(theme.colours.secondary))}</Text>
+                </Stack>
+            </Stack>,
         'Button': <Button
             children={'To GitHub!'}
             as="a"
