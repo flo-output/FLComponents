@@ -1,8 +1,7 @@
 import { GetColorName } from "hex-color-to-color-name";
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import useTheme from "../hooks/Theme";
 import { ColourTriple } from "../types";
-import { to_property } from "../utilities";
 import Avatar from "./Avatar";
 import Blockquote from "./Blockquote";
 import Button from "./Button"
@@ -67,7 +66,7 @@ export default function Showcase() {
             height: '100vh',
             display: 'grid',
             placeItems: 'center',
-        }}>
+        }}>            
             <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fill minmax(150, 1fr))',

@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import useTheme from "../hooks/Theme";
 import { FlIntrinsicProps, FlPolymorphic } from "../types";
-import { colour_property, compute_style, parse_numerical_property, populate_intrinsic_style } from "../utilities";
+import { colour_property, compute_style, parse_numerical_property, populate_intrinsic_style, reduce_props } from "../utilities";
 
 export default function Stack<C extends React.ElementType = 'div'>
     (props: FlPolymorphic<FlIntrinsicProps, C> & {
@@ -16,7 +16,7 @@ export default function Stack<C extends React.ElementType = 'div'>
     const Component = props.as || 'div';
 
     return (
-        <Component {...props} className={
+        <Component {...reduce_props(props, ['FlIntrinsicProps'], 'as', 'gap', 'direction', 'align', 'justify', 'withBorder')} className={
             compute_style({
                 ...populate_intrinsic_style(theme, props),
                 display: 'flex',

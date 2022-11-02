@@ -1,5 +1,5 @@
 import useTheme from "../hooks/Theme";
-import { compute_style, FlFalsey, populate_intrinsic_style, to_property } from "../utilities";
+import { compute_style, FlFalsey, populate_intrinsic_style, reduce_props, to_property } from "../utilities";
 import { ComponentPropsWithoutRef } from "react";
 import type { FlIntrinsicProps } from "../types";
 import Text from "./Text";
@@ -19,7 +19,7 @@ export default function Input
             {props.label && <Text children={props.label} mb={0} weight={600} />}
             {props.description && <Text children={props.description} mt={0} mb="xs" size="sm" opacity={60} weight={200} />}
 
-            <input {...props} type="text"
+            <input {...reduce_props(props, ['FlIntrinsicProps'])} type="text"
                 className={
                     compute_style({
                         ...populate_intrinsic_style(theme, props, {

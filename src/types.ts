@@ -9,6 +9,7 @@ export type FlColour = HEX | keyof FlTheme['colours'];
 export type FlBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number;
 export type FlSizeKeys = 'sizes' | 'radius' | 'spacing';
 
+// TODO: Support custom components
 export type FlPolymorphic<B, C extends ElementType> = B & {
     as?: C
 } & ComponentPropsWithoutRef<C>
@@ -26,6 +27,7 @@ export type FlIntrinsicProps = {
     className?: string;
     style?: React.CSSProperties;
 
+    p?: FlBreakpoint;
     px?: FlBreakpoint;
     py?: FlBreakpoint;
     pl?: FlBreakpoint;
@@ -33,6 +35,7 @@ export type FlIntrinsicProps = {
     pt?: FlBreakpoint;
     pb?: FlBreakpoint;
 
+    m?: FlBreakpoint;
     mx?: FlBreakpoint;
     my?: FlBreakpoint;
     ml?: FlBreakpoint;

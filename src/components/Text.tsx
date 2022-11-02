@@ -1,5 +1,5 @@
 import useTheme from "../hooks/Theme";
-import { colour_property, compute_style, populate_intrinsic_style } from "../utilities";
+import { colour_property, compute_style, populate_intrinsic_style, reduce_props } from "../utilities";
 import type { FlIntrinsicProps, FlPolymorphic, FlTextProps } from "../types";
 
 export default function Text<C extends React.ElementType = 'span'>
@@ -11,7 +11,7 @@ export default function Text<C extends React.ElementType = 'span'>
     const Component = props.as || 'span';
 
     return (
-        <Component {...props} className={compute_style({
+        <Component {...reduce_props(props, ['FlIntrinsicProps', 'FlTextProps'], 'as', 'opacity')} className={compute_style({
             ...populate_intrinsic_style(theme, props, {
                 my: 'sm',
                 size: 'md',

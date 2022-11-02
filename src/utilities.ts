@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, ElementType } from 'react';
 import { DefaultTheme } from './providers/FlProvider';
 import type { FlColour, ColourTriple, FlBreakpoint, FlIntrinsicProps, FlTheme, HEX, RawFlTheme, FlSizeKeys } from './types';
 
@@ -89,6 +89,7 @@ export const to_property = (hsl: ColourTriple, opacity: number = 100) => {
 export const calculate_theme = (theme: Partial<RawFlTheme>): FlTheme => {
     return {
         ...DefaultTheme,
+        ...theme,
         colours: {
             primary: hex_to_hsl(theme.colours?.primary ?? '#000000'),
             secondary: hex_to_hsl(theme.colours?.secondary ?? '#000000'),
@@ -126,6 +127,11 @@ export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps
 
         // Use generic value
         key = `${type}${['t', 'b'].includes(direction) ? 'y' : 'x'}` as 'mx' | 'my' | 'px' | 'py';
+        value = props[key] ?? defaults[key];
+        if (value !== undefined) return return_value();
+
+        // Use even more generic value
+        key = `${type}` as 'm' | 'p';
         value = props[key] ?? defaults[key];
         if (value !== undefined) return return_value();
 
@@ -193,4 +199,26 @@ export const compute_style = (styles: CSSProperties, className?: string) => {
     return id + suffix;
 }
 
+// TODO: Find a better way to do this
+export const reduce_props = (props: { [key: string]: any }, type: ('FlIntrinsicProps' | 'FlTextProps' | string)[], ...others: string[]) => {
+    const rejected_props = type.map(x => {
+
+        switch (x) {
+            case 'FlIntrinsicProps':
+                return ['children', 'className', 'style', 'p', 'px', 'py', 'pl', 'pr', 'pt', 'pb', 'm', 'mx', 'my', 'ml', 'mr', 'mt', 'mb', 'radius', 'size'];
+
+            case 'FlTextProps':
+                return ['color', 'colour', 'weight'];
+
+        }
+    }).flat().concat(others).filter(v => v && ![
+        'style'
+    ].includes(v));
+
+    return Object.fromEntries(
+        Object.entries(props).filter(k => !rejected_props.includes(k[0]))
+    );
+}
+
+// TODO: Reevaluate this
 export const FlFalsey = [false, null, undefined, ''];

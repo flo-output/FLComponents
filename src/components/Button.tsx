@@ -1,7 +1,7 @@
 import React from "react";
 import useTheme from "../hooks/Theme";
 import { FlIntrinsicProps, FlPolymorphic, FlTextProps } from "../types";
-import { colour_property, compute_style, populate_intrinsic_style, to_property } from "../utilities";
+import { colour_property, compute_style, populate_intrinsic_style, reduce_props, to_property } from "../utilities";
 
 export default function Button<C extends React.ElementType = 'button'>
     (props: FlPolymorphic<FlIntrinsicProps & FlTextProps, C>) {
@@ -10,7 +10,7 @@ export default function Button<C extends React.ElementType = 'button'>
     const Component = props.as || 'button';
 
     return (
-        <Component {...props} className={
+        <Component {...reduce_props(props, ['FlIntrinsicProps', 'FlTextProps'], 'as')} className={
             compute_style({
                 ...populate_intrinsic_style(theme, props, {
                     px: 'md',
@@ -21,7 +21,7 @@ export default function Button<C extends React.ElementType = 'button'>
                 border: '1px solid',
                 cursor: 'pointer',
                 backgroundColor: to_property(theme.colours.secondary),
-                
+
                 color: colour_property(theme, props.colour ?? props.color ?? 'primary'),
                 fontWeight: props.weight ?? 600,
                 textAlign: 'center',
