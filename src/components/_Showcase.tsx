@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Avatar from "./Avatar";
+import Blockquote from "./Blockquote";
 import Button from "./Button"
 import Input from "./Input"
 import Stack from "./Stack";
@@ -26,8 +27,10 @@ export default function Showcase() {
             placeholder="Keep it short, bud!" />,
         'Avatar': <Avatar
             src="https://cdn.discordapp.com/avatars/396635796234305537/7e695fca450474429fcb1e4d18a7e30f.png?size=4096"
-            size={100}
-        />
+            size={100} />,
+        'Blockquote': <Blockquote
+            children="Hello world!"
+            subtitle="from the FLComponents library" />,
     }
 
     return (

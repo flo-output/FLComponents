@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import useTheme from "../hooks/Theme";
 import { FlIntrinsicProps, FlPolymorphic } from "../types";
-import { compute_style, parse_numerical_property, populate_intrinsic_style } from "../utilities";
+import { colour_property, compute_style, parse_numerical_property, populate_intrinsic_style } from "../utilities";
 
 export default function Stack<C extends React.ElementType = 'div'>
     (props: FlPolymorphic<FlIntrinsicProps, C> & {
@@ -9,6 +9,7 @@ export default function Stack<C extends React.ElementType = 'div'>
         direction?: CSSProperties['flexDirection'],
         align?: CSSProperties['alignItems'],
         justify?: CSSProperties['justifyContent'],
+        withBorder?: boolean,
     }) {
 
     const theme = useTheme();
@@ -23,6 +24,7 @@ export default function Stack<C extends React.ElementType = 'div'>
                 alignItems: props.align ?? 'stretch',
                 justifyContent: props.justify ?? 'flex-start',
                 gap: parse_numerical_property(props.gap, theme.spacing, theme.units, 'sm'),
+                border: !props.border ? undefined : `1px solid ${colour_property(theme, 'primary')}`,
             }, props.className)
         }>
             {props.children}
