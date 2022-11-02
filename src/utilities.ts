@@ -140,8 +140,6 @@ export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps
 
     return {
 
-        ...props.style,
-
         display: 'block',
         textDecoration: 'none',
 
@@ -158,6 +156,8 @@ export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps
         marginBottom: directional_value('m', 'b'),
         marginLeft: directional_value('m', 'l'),
         marginRight: directional_value('m', 'r'),
+
+        ...props.style,
 
     }
 }

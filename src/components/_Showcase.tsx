@@ -1,14 +1,20 @@
 import { GetColorName } from "hex-color-to-color-name";
-import { useState } from "react"
+import { useState } from "react";
+import { alphaBlend, APCAcontrast, sRGBtoY } from "apca-w3";
 import useTheme from "../hooks/Theme";
 import { ColourTriple } from "../types";
 import Avatar from "./Avatar";
 import Blockquote from "./Blockquote";
-import Button from "./Button"
-import Input from "./Input"
+import Button from "./Button";
+import Input from "./Input";
 import Stack from "./Stack";
-import Text from "./Text"
+import Text from "./Text";
 
+// @ts-ignore
+import { colorParsley } from "colorparsley";
+// TODO: Make types for this and commit to repo
+
+// These functions are merely here for the sake of the showcase
 function hslToHex([h, s, l]: ColourTriple) {
     l /= 100;
     const a = s * Math.min(l, 1 - l) / 100;
@@ -19,6 +25,11 @@ function hslToHex([h, s, l]: ColourTriple) {
     };
 
     return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+// See above
+function randomHex(): `#${string}` {
+    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`
 }
 
 export default function Showcase() {
@@ -32,12 +43,12 @@ export default function Showcase() {
         'Colour Scheme':
             <Stack direction="row" gap={8}>
                 <Stack gap={0}>
-                    <Text my={0} size="lg" weight={700}>{hslToHex(theme.colours.primary)}</Text>
-                    <Text my={0}>{GetColorName(hslToHex(theme.colours.primary))}</Text>
+                    <Text style={{ textShadow: '0px 0px 3px black', fontFamily: 'monospace' }} my={0} size="lg" weight={700}>{hslToHex(theme.colours.primary)}</Text>
+                    <Text style={{ textShadow: '0px 0px 3px black', fontFamily: 'monospace' }} my={0}>{GetColorName(hslToHex(theme.colours.primary))}</Text>
                 </Stack>
                 <Stack gap={0}>
-                    <Text colour="secondary" my={0} size="lg" weight={700}>{hslToHex(theme.colours.secondary)}</Text>
-                    <Text colour="secondary" my={0}>{GetColorName(hslToHex(theme.colours.secondary))}</Text>
+                    <Text style={{ textShadow: '0px 0px 3px black', fontFamily: 'monospace' }} colour="secondary" my={0} size="lg" weight={700}>{hslToHex(theme.colours.secondary)}</Text>
+                    <Text style={{ textShadow: '0px 0px 3px black', fontFamily: 'monospace' }} colour="secondary" my={0}>{GetColorName(hslToHex(theme.colours.secondary))}</Text>
                 </Stack>
             </Stack>,
         'Button': <Button
@@ -66,7 +77,7 @@ export default function Showcase() {
             height: '100vh',
             display: 'grid',
             placeItems: 'center',
-        }}>            
+        }}>
             <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fill minmax(150, 1fr))',
@@ -100,6 +111,44 @@ export default function Showcase() {
                     })
                 }
             </div>
+            <Button
+                children="Randomize colours!"
+                onClick={() => {
+
+                    let i = 0, j = 0;
+
+                    let h1 = randomHex();
+                    let h2;
+
+                    do {
+                        h2 = randomHex();
+
+                        if (i++ > 100) {
+                            h1 = randomHex();
+                            j++;
+                        };
+
+                        if (j > 10) {
+                            h1 = '#000000' as `#${string}`;
+                            h2 = '#ffffff' as `#${string}`;
+                            break;
+                        }
+
+
+                    } while (
+                        Math.abs(Number(APCAcontrast(sRGBtoY(alphaBlend(colorParsley(h1), colorParsley(h2))), sRGBtoY(colorParsley(h2)))) ?? 0) < 60
+                    )
+
+                    theme.update({
+                        ...theme,
+                        colours: {
+                            primary: h1,
+                            secondary: h2,
+                            erroneous: '#ff0000',
+                        }
+                    })
+
+                }} />
         </div>
     )
 }
