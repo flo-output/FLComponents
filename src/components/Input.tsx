@@ -10,16 +10,19 @@ export default function Input
         label?: string,
         description?: string,
         error?: string,
+        password?: boolean,
     }) {
 
     const theme = useTheme();
 
     return (
-        <Stack as="label" gap={0}>
-            {props.label && <Text children={props.label} mb={0} weight={600} />}
-            {props.description && <Text children={props.description} mt={0} mb="xs" size="sm" opacity={60} weight={200} />}
+        <Stack as="label" gap={6}>
+            <Stack>
+                {props.label && <Text children={props.label} mb={0} weight={600} />}
+                {props.description && <Text children={props.description} my={0} size="sm" opacity={60} weight={200} />}
+            </Stack>
 
-            <input {...reduce_props(props, ['FlIntrinsicProps'])} type="text"
+            <input {...reduce_props(props, ['FlIntrinsicProps'])} type={props.password ? "password" : "text"}
                 className={
                     compute_style({
                         ...populate_intrinsic_style(theme, props, {

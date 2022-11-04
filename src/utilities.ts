@@ -1,4 +1,4 @@
-import { CSSProperties, ElementType } from 'react';
+import { CSSProperties } from 'react';
 import { DefaultTheme } from './providers/FlProvider';
 import type { FlColour, ColourTriple, FlBreakpoint, FlIntrinsicProps, FlTheme, HEX, RawFlTheme, FlSizeKeys } from './types';
 

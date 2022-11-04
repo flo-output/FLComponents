@@ -9,14 +9,14 @@ export default function Stack<C extends React.ElementType = 'div'>
         direction?: CSSProperties['flexDirection'],
         align?: CSSProperties['alignItems'],
         justify?: CSSProperties['justifyContent'],
-        withBorder?: boolean,
+        border?: boolean,
     }) {
 
     const theme = useTheme();
     const Component = props.as || 'div';
 
     return (
-        <Component {...reduce_props(props, ['FlIntrinsicProps'], 'as', 'gap', 'direction', 'align', 'justify', 'withBorder')} className={
+        <Component {...reduce_props(props, ['FlIntrinsicProps'], 'as', 'gap', 'direction', 'align', 'justify', 'border')} className={
             compute_style({
                 ...populate_intrinsic_style(theme, props),
                 display: 'flex',

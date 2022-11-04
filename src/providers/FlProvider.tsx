@@ -69,6 +69,37 @@ export default function FlProvider({ children, theme: initialTheme }: FlIntrinsi
                     border-color: transparent !important;
                 }
 
+                *::placeholder {
+                    color: ${to_property(theme.colours.primary, 60)};
+                }
+
+                input[type="range"] {
+                    -webkit-appearance: none;
+                    width: 100%;
+                    height: 1rem;
+                    background: transparent;
+                    padding: 0;
+                    border: 2px solid ${to_property(theme.colours.primary)};
+                }
+
+                input[type="range"]::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    width: 1rem;
+                    height: 1rem;
+                    background: ${to_property(theme.colours.primary)};
+                    cursor: pointer;
+                    border-radius: var(--radius);
+                }
+
+                input[type="range"]::-webkit-slider-runnable-track {
+                    width: 100%;
+                    height: 1rem;
+                    cursor: pointer;
+                    background: linear-gradient(to right, ${to_property(theme.colours.primary)} var(--value), transparent var(--value));
+                    border-radius: var(--radius);
+                }
+
                 body {
                     margin: 0;
                     padding: 0;

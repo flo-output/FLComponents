@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import { Helmet } from 'react-helmet'
+import Form from './components/_Form'
 import Showcase from './components/_Showcase'
 import FlProvider from './providers/FlProvider'
 
@@ -19,6 +20,7 @@ ReactDOM
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
         <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
       </Helmet>
-      <Showcase />
+      {/* <Showcase /> */}
+      <Form />
     </FlProvider>
   )

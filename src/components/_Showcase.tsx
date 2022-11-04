@@ -2,7 +2,7 @@ import { GetColorName } from "hex-color-to-color-name";
 import { useState } from "react";
 import { alphaBlend, APCAcontrast, sRGBtoY } from "apca-w3";
 import useTheme from "../hooks/Theme";
-import { ColourTriple } from "../types";
+import { ColourTriple, FlTheme, RawFlTheme } from "../types";
 import Avatar from "./Avatar";
 import Blockquote from "./Blockquote";
 import Button from "./Button";
@@ -30,6 +30,42 @@ function hslToHex([h, s, l]: ColourTriple) {
 // See above
 function randomHex(): `#${string}` {
     return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`
+}
+
+// See above
+export function randomizeTheme(theme: FlTheme & { update: (new_theme: RawFlTheme) => void }) {
+    let i = 0, j = 0;
+
+    let h1 = randomHex();
+    let h2;
+
+    do {
+        h2 = randomHex();
+
+        if (i++ > 100) {
+            h1 = randomHex();
+            j++;
+        };
+
+        if (j > 10) {
+            h1 = '#000000' as `#${string}`;
+            h2 = '#ffffff' as `#${string}`;
+            break;
+        }
+
+
+    } while (
+        Math.abs(Number(APCAcontrast(sRGBtoY(alphaBlend(colorParsley(h1), colorParsley(h2))), sRGBtoY(colorParsley(h2)))) ?? 0) < 60
+    )
+
+    theme.update({
+        ...theme,
+        colours: {
+            primary: h1,
+            secondary: h2,
+            erroneous: '#ff0000',
+        }
+    })
 }
 
 export default function Showcase() {
@@ -113,42 +149,7 @@ export default function Showcase() {
             </div>
             <Button
                 children="Randomize colours!"
-                onClick={() => {
-
-                    let i = 0, j = 0;
-
-                    let h1 = randomHex();
-                    let h2;
-
-                    do {
-                        h2 = randomHex();
-
-                        if (i++ > 100) {
-                            h1 = randomHex();
-                            j++;
-                        };
-
-                        if (j > 10) {
-                            h1 = '#000000' as `#${string}`;
-                            h2 = '#ffffff' as `#${string}`;
-                            break;
-                        }
-
-
-                    } while (
-                        Math.abs(Number(APCAcontrast(sRGBtoY(alphaBlend(colorParsley(h1), colorParsley(h2))), sRGBtoY(colorParsley(h2)))) ?? 0) < 60
-                    )
-
-                    theme.update({
-                        ...theme,
-                        colours: {
-                            primary: h1,
-                            secondary: h2,
-                            erroneous: '#ff0000',
-                        }
-                    })
-
-                }} />
+                onClick={() => randomizeTheme(theme)} />
         </div>
     )
 }
