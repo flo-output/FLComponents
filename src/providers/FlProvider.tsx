@@ -76,10 +76,9 @@ export default function FlProvider({ children, theme: initialTheme }: FlIntrinsi
                 input[type="range"] {
                     -webkit-appearance: none;
                     width: 100%;
-                    height: 1rem;
-                    background: transparent;
+                    background: linear-gradient(to right, ${to_property(theme.colours.primary)} var(--value), transparent var(--value));
                     padding: 0;
-                    border: 2px solid ${to_property(theme.colours.primary)};
+                    overflow: clip;
                 }
 
                 input[type="range"]::-webkit-slider-thumb {
@@ -89,15 +88,6 @@ export default function FlProvider({ children, theme: initialTheme }: FlIntrinsi
                     height: 1rem;
                     background: ${to_property(theme.colours.primary)};
                     cursor: pointer;
-                    border-radius: var(--radius);
-                }
-
-                input[type="range"]::-webkit-slider-runnable-track {
-                    width: 100%;
-                    height: 1rem;
-                    cursor: pointer;
-                    background: linear-gradient(to right, ${to_property(theme.colours.primary)} var(--value), transparent var(--value));
-                    border-radius: var(--radius);
                 }
 
                 body {

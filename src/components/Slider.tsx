@@ -5,7 +5,8 @@ import { compute_style, parse_numerical_property, populate_intrinsic_style, redu
 import Stack from "./Stack";
 import Text from "./Text";
 
-// TODO: check for controlled props
+// TODO: Check for controlled props
+// TODO: Fix slider track background when border has radius 
 export default function Slider(props: FlIntrinsicProps & ComponentPropsWithoutRef<'input'> & {
     min: number,
     max: number,
@@ -18,7 +19,7 @@ export default function Slider(props: FlIntrinsicProps & ComponentPropsWithoutRe
     const theme = useTheme();
 
     const initialValue = props.value ?? props.defaultValue ?? props.min ?? '0';
-    const [value, setValue] = useState(parseInt(initialValue as any));
+    const [value, setValue] = useState(parseFloat(initialValue as any));
 
     return (
         <Stack as="label" gap={6}>
@@ -27,15 +28,15 @@ export default function Slider(props: FlIntrinsicProps & ComponentPropsWithoutRe
                 {props.description && <Text children={props.description} my={0} size="sm" opacity={60} weight={200} />}
             </Stack>
 
-            <input {...reduce_props(props, ['FlIntrinsicProps'])} defaultValue={value} type="range" onChange={e => setValue(parseInt(e.target.value)) }
+            <input {...reduce_props(props, ['FlIntrinsicProps'])} defaultValue={value} type="range" onChange={e => setValue(parseFloat(e.target.value))}
                 className={
                     compute_style({
                         ...populate_intrinsic_style(theme, props, {
-                            px: 'md',
-                            py: 'sm',
+                            px: 0,
                             radius: 'sm',
                         }),
 
+                        border: props.border === false ? undefined : `${props.border ?? 1}px solid ${to_property(theme.colours.primary)}`,
                         cursor: 'pointer'
                     }, props.className)
                 }

@@ -31,7 +31,7 @@ export default function Form() {
                     <Stack>
                         <Input label="username" name="username" placeholder="Lorem ipsum" />
                         <Input password label="password" name="password" placeholder="Lorem ipsum" />
-                        <Slider label="current experience" min={0} max={10} step={1} />
+                        <Slider label="current experience" min={0} max={60} step={1} />
                     </Stack>
 
                     <Button type="submit" mt="lg">
