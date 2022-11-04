@@ -1,5 +1,6 @@
 import useTheme from "../hooks/Theme";
 import Button from "./Button";
+import Checkbox from "./Checkbox";
 import Input from "./Input";
 import Slider from "./Slider";
 import Stack from "./Stack";
@@ -32,6 +33,19 @@ export default function Form() {
                         <Input label="username" name="username" placeholder="Lorem ipsum" />
                         <Input password label="password" name="password" placeholder="Lorem ipsum" />
                         <Slider label="current experience" min={0} max={60} step={1} />
+
+                        {/* Replace with <Grid/> */}
+                        <Text size="lg">Skills</Text>
+                        <Stack direction="row" gap={0} style={{ width: '100%' }} justify="space-between">
+                            <Stack gap={16}>
+                                <Checkbox label="JavaScript" />
+                                <Checkbox label="JavaScript" />
+                            </Stack>
+                            <Stack gap={16}>
+                                <Checkbox reverse label="JavaScript" />
+                                <Checkbox reverse label="JavaScript" />
+                            </Stack>
+                        </Stack>
                     </Stack>
 
                     <Button type="submit" mt="lg">
