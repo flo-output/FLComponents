@@ -13,7 +13,7 @@ export default function Blockquote(props: FlIntrinsicProps & FlTextProps & {
     return (
         <Stack pl="lg" py="xs" direction="column" radius={0} gap="xs" style={{
             borderLeft: `5px solid ${colour_property(theme, 'primary')}`,
-        }} withBorder={false}>
+        }} border={false}>
             <span className={compute_style({
                 ...populate_intrinsic_style(theme, props, {
                     size: 'lg',

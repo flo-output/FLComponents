@@ -48,6 +48,8 @@ export default function FlProvider({ children, theme: initialTheme }: FlIntrinsi
     return (
         <>
             <Helmet>
+
+                {/* TODO: Use SCSS to allow for not just -webkit things */}
                 <style children={`
                 ::selection {
                     background-color: ${to_property(theme.colours.primary)};
@@ -81,13 +83,28 @@ export default function FlProvider({ children, theme: initialTheme }: FlIntrinsi
                     overflow: clip;
                 }
 
+                /* TODO: Fix issue with :focus-visible not working on range */
+
                 input[type="range"]::-webkit-slider-thumb {
                     -webkit-appearance: none;
-                    appearance: none;
                     width: 1rem;
                     height: 1rem;
                     background: ${to_property(theme.colours.primary)};
                     cursor: pointer;
+                }
+
+                input[type="radio"]:checked::after {
+                    content: "";
+                    display: block;
+                    width: calc(100% - 0.75rem);
+                    height: calc(100% - 0.75rem);
+                    border-radius: inherit;
+                    margin: 0.375rem;
+                    background: ${to_property(theme.colours.primary)};
+                }
+
+                input[type="checkbox"]:checked {
+                    background: ${to_property(theme.colours.primary)};
                 }
 
                 body {

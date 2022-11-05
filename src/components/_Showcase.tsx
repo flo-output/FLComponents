@@ -12,10 +12,13 @@ import Text from "./Text";
 
 // @ts-ignore
 import { colorParsley } from "colorparsley";
+import Slider from "./Slider";
+import Checkbox from "./Checkbox";
+import Radio from "./Radio";
 // TODO: Make types for this and commit to repo
 
 // These functions are merely here for the sake of the showcase
-function hslToHex([h, s, l]: ColourTriple) {
+export function hslToHex([h, s, l]: ColourTriple) {
     l /= 100;
     const a = s * Math.min(l, 1 - l) / 100;
     const f = (n: number) => {
@@ -68,25 +71,27 @@ export function randomizeTheme(theme: FlTheme & { update: (new_theme: RawFlTheme
     })
 }
 
+// See above
+export function swapTheme(theme: FlTheme & { update: (new_theme: RawFlTheme) => void }) {
+
+    theme.update({
+        ...theme,
+        colours: {
+            primary: hslToHex(theme.colours.secondary) as `#${string}`,
+            secondary: hslToHex(theme.colours.primary) as `#${string}`,
+            erroneous: '#ff0000',
+        }
+    })
+
+}
+
 export default function Showcase() {
 
-    const theme = useTheme();
     const [states, setStates] = useState<{ [key: string]: any }>({});
     const get = (key: string) => states[key] ?? '';
     const set = (key: string, value: string) => setStates({ ...states, [key]: value });
 
     const components: { [key: string]: JSX.Element } = {
-        'Colour Scheme':
-            <Stack direction="row" gap={8}>
-                <Stack gap={0}>
-                    <Text style={{ textShadow: '0px 0px 3px black', fontFamily: 'monospace' }} my={0} size="lg" weight={700}>{hslToHex(theme.colours.primary)}</Text>
-                    <Text style={{ textShadow: '0px 0px 3px black', fontFamily: 'monospace' }} my={0}>{GetColorName(hslToHex(theme.colours.primary))}</Text>
-                </Stack>
-                <Stack gap={0}>
-                    <Text style={{ textShadow: '0px 0px 3px black', fontFamily: 'monospace' }} colour="secondary" my={0} size="lg" weight={700}>{hslToHex(theme.colours.secondary)}</Text>
-                    <Text style={{ textShadow: '0px 0px 3px black', fontFamily: 'monospace' }} colour="secondary" my={0}>{GetColorName(hslToHex(theme.colours.secondary))}</Text>
-                </Stack>
-            </Stack>,
         'Button': <Button
             children={'To GitHub!'}
             as="a"
@@ -105,6 +110,23 @@ export default function Showcase() {
         'Blockquote': <Blockquote
             children="Hello world!"
             subtitle="from the FLComponents library" />,
+        'Slider': <Slider
+            style={{ width: '100%' }}
+            label="A slider!"
+            min={0}
+            max={10}
+            step={1}
+        />,
+        'Checkbox': <Checkbox
+            label="Looks good?" />,
+        'Radio': <Stack
+            style={{ width: '100%' }}
+            gap={4}
+            children={<>
+                <Radio name="radio" label="This.." />
+                <Radio name="radio" label="Or this?" />
+                <Radio name="radio" label="Even This!" />
+            </>} />
     }
 
     return (
@@ -116,9 +138,10 @@ export default function Showcase() {
         }}>
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill minmax(150, 1fr))',
-                gridTemplateRows: 'repeat(auto-fill minmax(150, 1fr))',
-                gap: '2rem',
+                gridTemplateColumns: 'repeat(auto-fit, 325px)',
+                justifyContent: 'center',
+                width: '100%',
+                gap: '2rem'
             }}>
                 {
                     Object.entries(components).map(([Name, Component]) => {
@@ -126,6 +149,7 @@ export default function Showcase() {
                             <Stack
                                 gap={1}
                                 key={Name}
+                                justify="space-between"
                                 style={{
                                     minHeight: '5rem',
                                     background: 'rgba(255, 255, 255, 0.1)',
@@ -133,9 +157,10 @@ export default function Showcase() {
                                     borderRadius: '0.5rem',
                                 }}>
                                 <div style={{
+                                    flex: '1',
                                     width: '100%',
                                     display: 'grid',
-                                    placeItems: 'center'
+                                    placeItems: 'center',
                                 }}>
                                     {Component}
                                 </div>
@@ -147,9 +172,6 @@ export default function Showcase() {
                     })
                 }
             </div>
-            <Button
-                children="Randomize colours!"
-                onClick={() => randomizeTheme(theme)} />
         </div>
     )
 }
