@@ -6,6 +6,7 @@ import { colour_property, compute_style, populate_intrinsic_style, reduce_props,
 export default function Button<C extends React.ElementType = 'button'>
     (props: FlPolymorphic<FlIntrinsicProps & FlTextProps, C> & {
         border?: boolean | number,
+        variant?: 'subtle'
     }) {
 
     const theme = useTheme();
@@ -22,13 +23,16 @@ export default function Button<C extends React.ElementType = 'button'>
 
                 border: props.border === false ? 'none' : `${props.border ?? 1}px solid`,
                 cursor: 'pointer',
-                backgroundColor: to_property(theme.colours.secondary),
 
                 color: colour_property(theme, props.colour ?? props.color ?? 'primary'),
                 fontWeight: props.weight ?? 600,
                 textAlign: 'center',
+                userSelect: 'none',
 
-                userSelect: 'none'
+                background:
+                    props.variant === 'subtle' ? 'none' :
+                        to_property(theme.colours.secondary)
+
             }, props.className)
         }>
             {props.children}

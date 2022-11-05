@@ -85,6 +85,31 @@ export function swapTheme(theme: FlTheme & { update: (new_theme: RawFlTheme) => 
 
 }
 
+export function randomizeOne(theme: FlTheme & { update: (new_theme: RawFlTheme) => void }, colour: 'primary' | 'secondary') {
+
+    let h2, i = 0;
+
+    do {
+        h2 = randomHex();
+        if (i++ > 200) return console.log('Exhausted :/');
+    } while (
+        Math.abs(Number(APCAcontrast(sRGBtoY(alphaBlend(colorParsley(hslToHex(theme.colours[colour])), colorParsley(h2))), sRGBtoY(colorParsley(h2)))) ?? 0) < 60
+    )
+
+    const a = {
+        ...theme,
+        colours: {
+            [colour]: hslToHex(theme.colours[colour]),
+            [colour === 'primary' ? 'secondary' : 'primary']: h2 as `#${string}`,
+            erroneous: '#ff0000',
+        } as any
+    };
+
+    console.log(a);
+    theme.update(a)
+
+}
+
 export default function Showcase() {
 
     const [states, setStates] = useState<{ [key: string]: any }>({});
