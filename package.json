@@ -1,31 +1,46 @@
 {
   "name": "flcomponents",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.4",
   "type": "module",
-  "main": "src/lib.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/lib.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build-site": "tsc && vite build",
+    "build": "rollup -c"
   },
   "dependencies": {
-    "react": "^18.2.0"
+    "@types/react-helmet": "^6.1.5",
+    "react": "^18.2.0",
+    "react-helmet": "^6.1.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^9.0.2",
+    "@types/apca-w3": "^0.1.0",
+    "@types/node": "^18.11.8",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "@vitejs/plugin-react": "^2.2.0",
+    "apca-w3": "^0.1.9",
+    "colorparsley": "^0.1.8",
     "hex-color-to-color-name": "^1.0.2",
     "prettier": "2.7.1",
-    "typescript": "^4.6.4",
-    "vite": "^3.2.0",
     "react-dom": "^18.2.0",
-    "react-helmet": "^6.1.0",
-    "@types/apca-w3": "^0.1.0",
-    "@types/node": "^18.11.8",
-    "@types/react-helmet": "^6.1.5",
-    "apca-w3": "^0.1.9",
-    "colorparsley": "^0.1.8"
+    "rollup": "^3.2.5",
+    "rollup-plugin-dts": "^5.0.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.0"
+  },
+  "homepage": "https://github.com/flo-output/FLComponents",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flo-output/FLComponents"
   }
 }

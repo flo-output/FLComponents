@@ -1,28 +1,17 @@
-import useTheme from "./hooks/Theme";
-import FlProvider from "./providers/FlProvider";
+export {default as useTheme} from "./hooks/Theme";
 
-import Avatar from "./components/Avatar";
-import Blockquote from "./components/Blockquote";
-import Button from "./components/Button";
-import Checkbox from "./components/Checkbox";
-import Divider from "./components/Divider";
-import Input from "./components/Input";
-import Radio from "./components/Radio";
-import Slider from "./components/Slider";
-import Stack from "./components/Stack";
+// 
 
-export default {
-    FlProvider,
-    useTheme,
+export {default as FlProvider} from "./providers/FlProvider";
 
-    Avatar,
-    Blockquote,
-    Button,
-    Checkbox,
-    Divider,
-    Input,
-    Radio,
-    Slider,
-    Stack,
-    Text
-}
+// 
+
+export {default as Avatar} from "./components/Avatar";
+export {default as Blockquote} from "./components/Blockquote";
+export {default as Button} from "./components/Button";
+export {default as Checkbox} from "./components/Checkbox";
+export {default as Divider} from "./components/Divider";
+export {default as Input} from "./components/Input";
+export {default as Radio} from "./components/Radio";
+export {default as Slider} from "./components/Slider";
+export {default as Stack} from "./components/Stack";
