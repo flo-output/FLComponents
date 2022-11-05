@@ -1,22 +1,16 @@
 {
-  "name": "chat",
-  "private": true,
-  "version": "0.0.0",
+  "name": "flcomponents",
+  "private": false,
+  "version": "0.1.0",
   "type": "module",
+  "main": "src/lib.ts",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/apca-w3": "^0.1.0",
-    "@types/node": "^18.11.8",
-    "@types/react-helmet": "^6.1.5",
-    "apca-w3": "^0.1.9",
-    "colorparsley": "^0.1.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-helmet": "^6.1.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.22",
@@ -25,6 +19,13 @@
     "hex-color-to-color-name": "^1.0.2",
     "prettier": "2.7.1",
     "typescript": "^4.6.4",
-    "vite": "^3.2.0"
+    "vite": "^3.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "@types/apca-w3": "^0.1.0",
+    "@types/node": "^18.11.8",
+    "@types/react-helmet": "^6.1.5",
+    "apca-w3": "^0.1.9",
+    "colorparsley": "^0.1.8"
   }
 }
