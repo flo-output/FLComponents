@@ -1,7 +1,6 @@
-import { GetColorName } from "hex-color-to-color-name";
-import useTheme from "../hooks/Theme";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
+import Divider from "./Divider";
 import Input from "./Input";
 import Radio from "./Radio";
 import Slider from "./Slider";
@@ -9,7 +8,6 @@ import Stack from "./Stack";
 import Text from "./Text";
 
 export default function Form() {
-    const theme = useTheme();
     return (
         <div style={{
             width: '100vw',
@@ -26,7 +24,7 @@ export default function Form() {
                     To get started, please fill out the form below.
                 </Text>
 
-                {/* Divider */}
+                <Divider variant="solid" thickness={2} spacing="xs" />
 
                 <form>
                     <Stack>

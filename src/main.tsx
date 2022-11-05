@@ -33,7 +33,7 @@ function Display() {
     <Form />,
   ]
 
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1);
   return (
     <>
       <Helmet>
