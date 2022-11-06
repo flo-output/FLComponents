@@ -122,17 +122,32 @@ export const populate_intrinsic_style = (theme: FlTheme, props: FlIntrinsicProps
 
         // Use specific value
         key = `${type}${direction}` as 'mt' | 'mb' | 'ml' | 'mr' | 'pt' | 'pb' | 'pl' | 'pr';
-        value = props[key] ?? defaults[key];
+        value = props[key];
         if (value !== undefined) return return_value();
 
         // Use generic value
         key = `${type}${['t', 'b'].includes(direction) ? 'y' : 'x'}` as 'mx' | 'my' | 'px' | 'py';
-        value = props[key] ?? defaults[key];
+        value = props[key];
         if (value !== undefined) return return_value();
 
         // Use even more generic value
         key = `${type}` as 'm' | 'p';
-        value = props[key] ?? defaults[key];
+        value = props[key];
+        if (value !== undefined) return return_value();
+
+        // Use fallback
+        key = `${type}${direction}` as 'mt' | 'mb' | 'ml' | 'mr' | 'pt' | 'pb' | 'pl' | 'pr';
+        value = defaults[key];
+        if (value !== undefined) return return_value();
+
+        // Use generic fallback
+        key = `${type}${['t', 'b'].includes(direction) ? 'y' : 'x'}` as 'mx' | 'my' | 'px' | 'py';
+        value = defaults[key];
+        if (value !== undefined) return return_value();
+
+        // Use even more generic fallback
+        key = `${type}` as 'm' | 'p';
+        value = defaults[key];
         if (value !== undefined) return return_value();
 
         return 0;

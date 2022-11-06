@@ -3,6 +3,7 @@ import Checkbox from "./Checkbox";
 import Divider from "./Divider";
 import Grid from "./Grid";
 import Input from "./Input";
+import NumberInput from "./NumberInput";
 import Radio from "./Radio";
 import Slider from "./Slider";
 import Stack from "./Stack";
@@ -27,18 +28,21 @@ export default function Form() {
 
                 <Divider variant="solid" thickness={2} spacing="xs" />
 
-                <form>
+                <form onSubmit={e => e.preventDefault()}>
                     <Stack>
                         <Input label="username" name="username" placeholder="Lorem ipsum" />
                         <Input password label="password" name="password" placeholder="Lorem ipsum" />
-                        <Slider label="current experience" min={0} max={60} step={1} />
+
+                        <NumberInput label="age" min={0} max={100} /> 
+
+                        <Slider label="technical proficiency" min={0} max={60} step={1} />
 
                         <Text size="lg">Skills</Text>
                         <Grid direction="row" gap={6} style={{ width: '100%' }} columns={2} rows={2}>
-                                <Checkbox size={22.5} label="JavaScript" />
-                                <Checkbox size={22.5} label="C++" />
-                                <Checkbox reverse size={22.5} label="Python" />
-                                <Checkbox reverse size={22.5} label="Rust" />
+                            <Checkbox size={22.5} label="JavaScript" />
+                            <Checkbox size={22.5} label="C++" />
+                            <Checkbox reverse size={22.5} label="Python" />
+                            <Checkbox reverse size={22.5} label="Rust" />
                         </Grid>
 
                         <Text size="lg">Favourite web framework</Text>

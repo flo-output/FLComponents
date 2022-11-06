@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import useTheme from "../hooks/Theme";
 import { FlIntrinsicProps, FlPolymorphic } from "../types";
 import { colour_property, compute_style, parse_numerical_property, populate_intrinsic_style, reduce_props } from "../utilities";

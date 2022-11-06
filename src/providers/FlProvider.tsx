@@ -107,6 +107,11 @@ export default function FlProvider({ children, theme: initialTheme }: FlIntrinsi
                     background: ${to_property(theme.colours.primary)};
                 }
 
+                input[type="number"]::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    display: none;
+                }
+
                 body {
                     margin: 0;
                     padding: 0;

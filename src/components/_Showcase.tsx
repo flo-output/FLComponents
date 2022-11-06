@@ -15,6 +15,7 @@ import { colorParsley } from "colorparsley";
 import Slider from "./Slider";
 import Checkbox from "./Checkbox";
 import Radio from "./Radio";
+import NumberInput from "./NumberInput";
 // TODO: Make types for this and commit to repo
 
 // These functions are merely here for the sake of the showcase
@@ -151,7 +152,14 @@ export default function Showcase() {
                 <Radio name="radio" label="This.." />
                 <Radio name="radio" label="Or this?" />
                 <Radio name="radio" label="Even This!" />
-            </>} />
+            </>} />,
+        'Number Input': <NumberInput
+            label="An input!"
+            description="This time a number!"
+            onChange={e => set('Number', e.target.value)}
+            value={get('Number')}
+            error={(!get('Number') || get('Number') <= 10) ? '' : 'Getting a bit big there, huh?'}
+            placeholder="Keep it small, bud!" />,
     }
 
     return (
