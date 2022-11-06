@@ -1,6 +1,7 @@
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 import Divider from "./Divider";
+import Grid from "./Grid";
 import Input from "./Input";
 import Radio from "./Radio";
 import Slider from "./Slider";
@@ -32,18 +33,13 @@ export default function Form() {
                         <Input password label="password" name="password" placeholder="Lorem ipsum" />
                         <Slider label="current experience" min={0} max={60} step={1} />
 
-                        {/* Replace with <Grid/> */}
                         <Text size="lg">Skills</Text>
-                        <Stack direction="row" gap={0} style={{ width: '100%' }} justify="space-between">
-                            <Stack gap={10} justify="space-between">
+                        <Grid direction="row" gap={6} style={{ width: '100%' }} columns={2} rows={2}>
                                 <Checkbox size={22.5} label="JavaScript" />
                                 <Checkbox size={22.5} label="C++" />
-                            </Stack>
-                            <Stack gap={10} align="flex-end">
                                 <Checkbox reverse size={22.5} label="Python" />
                                 <Checkbox reverse size={22.5} label="Rust" />
-                            </Stack>
-                        </Stack>
+                        </Grid>
 
                         <Text size="lg">Favourite web framework</Text>
                         <Stack direction="row" justify="space-around">
