@@ -9,7 +9,8 @@ export default function Checkbox
     (props: FlIntrinsicProps & ComponentPropsWithoutRef<'input'> & {
         label?: string,
         direction?: 'row' | 'column',
-        reverse?: boolean
+        reverse?: boolean,
+        gap?: number,
     }) {
 
     const theme = useTheme();
@@ -18,7 +19,7 @@ export default function Checkbox
     )
 
     return (
-        <Stack as="label" gap={props.label ? 6 : 0} direction={props.direction ?? 'row'} align="center" justify={!props.reverse ? 'flex-start' : 'flex-end'} style={{
+        <Stack as="label" gap={props.label ? props.gap ?? 8 : 0} direction={props.direction ?? 'row'} align="center" justify={!props.reverse ? 'flex-start' : 'flex-end'} style={{
             height: props.direction === undefined || props.direction === 'row' ? parse_numerical_property(props.size, theme.sizes, theme.units, 'lg') : '100%',
             width: props.direction === 'column' ? parse_numerical_property(props.size, theme.sizes, theme.units, 'lg') : '100%',
         }}>

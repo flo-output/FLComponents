@@ -5,7 +5,6 @@ tsconfig.json
 tsconfig.node.json
 vite.config.ts
 .prettierrc.json
-dist
 .vscode
 src/main.tsx
 src/vite-env.d.ts,
