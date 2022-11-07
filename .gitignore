@@ -26,3 +26,4 @@ dist-ssr
 # Extra little things
 build.zip
 cloud.config.json
+vite

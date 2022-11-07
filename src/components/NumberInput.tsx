@@ -34,8 +34,10 @@ export default function NumberInput
                                 py: 'sm',
                                 radius: 'sm',
                             }),
+                            width: '100%',
                             border: '1px solid',
                             cursor: 'text',
+                            height: '100%',
                             backgroundColor: to_property(theme.colours.secondary),
                             color: to_property(theme.colours.primary),
                         }, props.className)
@@ -53,11 +55,11 @@ export default function NumberInput
                     right: '0.5rem',
                     top: 0,
                 }}>
-                    <Button variant="subtle" size="sm" border={0} p={0} onClick={() => {
+                    <Button variant="subtle" size="sm" border={0} p={0} tabIndex={-1} onClick={() => {
                         ref.current!.value = String(Number(ref.current!.value) + 1);
                         ref.current!.dispatchEvent(new Event('change'));
                     }}>^</Button>
-                    <Button variant="subtle" size="sm" border={0} p={0} style={{transform: 'scaleY(-1)'}} onClick={() => {
+                    <Button variant="subtle" size="sm" border={0} p={0} tabIndex={-1} style={{transform: 'scaleY(-1)'}} onClick={() => {
                         ref.current!.value = String(Number(ref.current!.value) - 1);
                         ref.current!.dispatchEvent(new Event('change'));
                     }}>^</Button>
